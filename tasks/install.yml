@@ -12,6 +12,11 @@
     egrep "^{{ pm2_user }}:" /etc/passwd | awk -F: '{ print $6 }'
   changed_when: false
   register: pm2_user_home
+  tags: pm2_logrotate
 
 - name: Installing startup script
   command: "pm2 startup -u {{ pm2_user }} --hp {{ pm2_user_home.stdout }}"
+
+- name: create logrotate config for ansible user
+  template: src=ansible-pm2.j2 dest=/etc/logrotate.d/ansible-pm2
+  tags: pm2_logrotate 
