@@ -1,0 +1,10 @@
+{{ pm2_user_home.stdout }}/.pm2/pm2.log {{ pm2_user_home.stdout }}/.pm2/logs/*.log {
+        rotate 12
+        weekly
+        missingok
+        notifempty
+        compress
+        delaycompress
+        copytruncate
+        create 0640 ansible ansible
+}
